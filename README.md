@@ -119,7 +119,7 @@ an issue or submit a pull request on the GitHub repository.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is released under the Unlicense. For more details, see the [UNLICENSE](UNLICENSE) file.
 
 ---
 Happy Coding!
