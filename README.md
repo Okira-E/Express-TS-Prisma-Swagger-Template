@@ -3,7 +3,8 @@
 ## Description
 
 Express-TS-Prisma-Swagger-Template is a starter project and template that sets up a TypeScript application with
-Express.js, Prisma, and Swagger. This project provides a solid foundation for building scalable backend applications using these
+Express.js, Prisma, and Swagger. This project provides a solid foundation for building scalable backend applications
+using these
 technologies.
 
 ## Installation
@@ -51,7 +52,6 @@ The following commands are available for use in the project:
 | `npm run watch`  | Watches *.ts in src/ and continuously builds the app in ./dist |
 | `npm run dev`    | Runs the application and watches changes in ./dist             |
 | `npm run start`  | Runs the application in production mode                        |
-| `npm run format` | Runs ESLint on the project                                     |
 | `npm run format` | Runs Prettier on the project                                   |
 | `npm run test`   | Runs Tests in ./src/tests                                      |
 
