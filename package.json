@@ -2,7 +2,7 @@
   "name": "express-ts-prisma-swagger-template",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/main.js",
+  "main": "dist/src/main.js",
   "scripts": {
     "build": "tsc && echo Built successfully in ./dist",
     "watch": "tsc -w",
