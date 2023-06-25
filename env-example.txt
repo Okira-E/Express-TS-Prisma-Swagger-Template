@@ -1,0 +1,4 @@
+DATABASE_URL="mysql://johndoe:randompassword@localhost:3306/mydb"
+CORS_ORIGIN="http://localhost:*"
+ENVIRONMENT="DEV"
+PORT=3200
