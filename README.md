@@ -1,8 +1,8 @@
-# Express-TS-Prisma-Swagger-Template
+# Expressify
 
 ## Description
 
-Express-TS-Prisma-Swagger-Template is a starter project and template that sets up a TypeScript application with
+Expressify is a starter project and template that sets up a TypeScript application with
 Express.js, Prisma, and Swagger. This project provides a solid foundation for building scalable backend applications
 using these
 technologies.
@@ -12,13 +12,13 @@ technologies.
 1. Clone the repository
 
 ````shell
-git clone https://github.com/Okira-E/express-ts-prisma-swagger-template.git
+git clone https://github.com/Okira-E/expressify.git
 ````
 
 1. Navigate to the project directory
 
 ````shell
-cd express-ts-prisma-swagger-template
+cd expressify
 ````
 
 1. Install dependencies with either `npm` or `yarn`
