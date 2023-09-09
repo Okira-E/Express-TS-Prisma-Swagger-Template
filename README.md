@@ -57,6 +57,18 @@ The following commands are available for use in the project:
 
 For running locally, use `npm run watch` and `npm run dev` in separate terminals.
 
+## Migration
+To sync between your TypeScript models and your database, add `migrate-soft` or `migrate-hard` to any run command such as:
+```shell
+yarn run dev -- migrate-soft
+or
+npm run start -- migrate-hard
+```
+
+`migrate-soft` will attempt to sync your database with your models without dropping any data. `migrate-hard` will drop tables and recreate them to apply changes.
+
+***Note***: `migrate-hard` will drop all tables and recreate them. This will result in loss of data. For 99% of cases, `migrate-soft` is the best option.
+
 ## Configuration
 
 The main configuration files for this project are as follows:

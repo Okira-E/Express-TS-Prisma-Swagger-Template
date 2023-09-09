@@ -1,13 +1,16 @@
 import express from 'express';
 import cors from 'cors';
-import { PrismaClient } from '@prisma/client';
+import { Sequelize } from 'sequelize-typescript';
+import { Dialect } from 'sequelize';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import dotenv from 'dotenv';
 
 import systemUsersRouter from './routes/system-users.router';
 import GlobalRequestHandlers from './handlers/request-handlers';
 import testApp from './tests';
 
+dotenv.config();
 
 // -- Express initialization.
 const app = express();
@@ -22,13 +25,16 @@ app.use(cors({
 }));
 
 
-// -- Prisma Client initialization.
-export const prismaClient = new PrismaClient();
-prismaClient.$connect().then(() => {
-    console.log('Connected to the database.');
-}).catch((error) => {
-    console.error('Error while initializing Prisma Client: ', error);
-    process.exit(1);
+// -- Sequelize Client initialization.
+export const sequelizeClient = new Sequelize({
+    logging: process.env.ENVIRONMENT === 'DEV' ? console.log : false,
+    dialect: process.env.DB_DIALECT as Dialect ?? '',
+    database: process.env.DB_NAME ?? '',
+    username: process.env.DB_USERNAME ?? '',
+    password: process.env.DB_PASSWORD ?? '',
+    host: process.env.DB_HOST ?? '',
+    port: Number(process.env.DB_PORT) ?? 0,
+    models: [__dirname + '/models'],
 });
 
 
@@ -80,7 +86,7 @@ app.all('*', GlobalRequestHandlers.notFoundRouter);
 // -- Setup testing on "npm run test".
 const test = () => {
     testApp(app);
-}
+};
 
 // -- Start the server.
 const start = () => {
@@ -96,5 +102,21 @@ const start = () => {
 if (process.argv.at(2) === 'test') {
     test();
 } else {
+    if (process.argv.at(2) === 'migrate-soft') {
+        sequelizeClient.sync({ force: false }).then(() => {
+            console.log('Database migrated gracefully.');
+        }).catch((err) => {
+            console.error('Error migrating database forcefully.');
+            console.error(err);
+        });
+    } else if (process.argv.at(2) === 'migrate-hard') {
+        sequelizeClient.sync({ force: true }).then(() => {
+            console.log('Database migrated forcefully.');
+        }).catch((err) => {
+            console.error('Error migrating database forcefully.');
+            console.error(err);
+        });
+    }
+
     start();
 }

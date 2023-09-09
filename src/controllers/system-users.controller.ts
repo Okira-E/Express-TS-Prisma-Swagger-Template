@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { prismaClient } from '../main';
+import UserModel from './../models/user';
 import { Err, Ok } from '../handlers/response-handlers';
 
 
@@ -14,7 +14,7 @@ import { Err, Ok } from '../handlers/response-handlers';
  *     description: All system users returned.
  */
 export async function getAll(req: Request, res: Response) {
-    const systemUsers = await prismaClient.users.findMany();
+    const systemUsers = await UserModel.findAll();
     if (!systemUsers) {
         return Err(res, {
             msg: 'No system users found.',
@@ -51,11 +51,7 @@ export async function getOneById(req: Request, res: Response) {
         });
     }
 
-    const user = await prismaClient.users.findUnique({
-        where: {
-            id: Number(userId),
-        },
-    });
+    const user = await UserModel.findByPk(userId);
 
     if (!user) {
         return Err(res, {
@@ -86,11 +82,8 @@ export async function getOneById(req: Request, res: Response) {
  */
 export async function createOne(req: Request, res: Response) {
     try {
-        const newUser = await prismaClient.users.create({
-            data: {
-                name: req.body.name,
-                email: req.body.email,
-            },
+        const newUser = await UserModel.create({
+            ...req.body,
         });
 
         return Ok(res, {
@@ -132,13 +125,10 @@ export async function updateOneById(req: Request, res: Response) {
     }
 
     try {
-        const updatedUser = await prismaClient.users.update({
+        const updatedUser = await UserModel.update({...req.body}, {
             where: {
-                id: Number(userId),
-            },
-            data: {
-                ...req.body,
-            },
+                id: userId,
+            }
         });
 
         return Ok(res, {
@@ -179,9 +169,9 @@ export async function deleteOneById(req: Request, res: Response) {
     }
 
     try {
-        const deletedUser = await prismaClient.users.delete({
+        const deletedUser = await UserModel.destroy({
             where: {
-                id: Number(userId),
+                id: userId,
             },
         });
 

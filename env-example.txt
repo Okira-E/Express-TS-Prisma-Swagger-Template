@@ -1,4 +1,10 @@
-DATABASE_URL="mysql://johndoe:randompassword@localhost:3306/mydb"
+DB_DIALECT="mysql"
+DB_NAME="mydb"
+DB_USERNAME="root"
+DB_PASSWORD="root"
+DB_HOST="localhost"
+DB_PORT="3306"
+
 CORS_ORIGIN="http://localhost:*"
 ENVIRONMENT="DEV"
 PORT=3200
